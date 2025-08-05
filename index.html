@@ -2,48 +2,37 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Moroccan Live TV</title>
+  <title>TV App</title>
   <style>
-    body {
-      margin: 0;
-      background-color: black;
-      color: white;
-      font-family: sans-serif;
-      text-align: center;
-    }
-    video {
-      width: 100%;
-      height: 80vh;
-      background: #000;
-    }
-    .buttons {
-      padding: 10px;
-    }
-    button {
-      padding: 10px 20px;
-      margin: 5px;
-      font-size: 18px;
-      border: none;
-      border-radius: 8px;
-      background-color: #3f51b5;
-      color: white;
-    }
+    body { background: black; margin: 0; color: white; font-family: sans-serif; text-align: center; }
+    button { padding: 15px; margin: 5px; font-size: 18px; background: #3f51b5; color: white; border: none; border-radius: 8px; }
+    iframe, video { width: 100%; height: 80vh; border: none; }
   </style>
 </head>
 <body>
-  <h1>📺 Moroccan TV Live</h1>
-  <video id="player" controls autoplay></video>
- 
-  <div class="buttons">
-<button onclick="play('https://streaming2.medi1tv.com/live/smil:medi1tv.smil/playlist.m3u8')">Medi 1 TV</button>
-<button onclick="play('https://p-alchimie-services-live.akamaized.net/ogl_group_1/france24_ar/simple.isml/master.m3u8')">France 24 Arabic</button>
+  <h2>TV Channels</h2>
+
+  <!-- The iframe will be used for YouTube or fallback -->
+  <iframe id="ytplayer" allowfullscreen></iframe>
+
+  <div>
+    <button onclick="playYouTube('https://www.youtube.com/embed/1FehGJNYvJI')">France 24 Arabic</button>
+    <button onclick="playHLS('https://cdnamd-hls-globecast.akamaized.net/live/ramdisk/al_aoula_inter/hls_snrt/index.m3u8')">Al Aoula</button>
+    <button onclick="playHLS('https://cdnamd-hls-globecast.akamaized.net/live/ramdisk/2mmonde/hls_snrt/index.m3u8')">2M</button>
+    <button onclick="playHLS('https://streaming2.medi1tv.com/live/smil:medi1tv.smil/playlist.m3u8')">Medi 1 TV</button>
   </div>
- 
+
   <script>
-    const video = document.getElementById('player');
-    function play(url) {
-      video.src = url;
-video.play();
+    const iframe = document.getElementById("ytplayer");
+
+    function playYouTube(url) {
+      iframe.src = url;
+      iframe.style.display = "block";
+    }
+
+    function playHLS(url) {
+      iframe.src = "https://playerjs.net/?file=" + encodeURIComponent(url);
+      iframe.style.display = "block";
     }
   </script>
 </body>
